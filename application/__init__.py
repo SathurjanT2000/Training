@@ -1,6 +1,5 @@
 from flask import Flask 
 from flask_sqlalchemy import SQLAlchemy
-from Secrets import SQLALCHEMY_DATABASE_URI
 import uuid
 
 app = Flask(__name__)
