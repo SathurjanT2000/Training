@@ -23,3 +23,19 @@ class TrainersForm(FlaskForm):
     ])
     submit = SubmitField('Add Trainer')
 
+class TraineesForm(FlaskForm):
+    first_name = StringField('first name', validators=[
+        DataRequired(),
+        Length(max=30)
+    ])
+    last_name = StringField('last name', validators=[
+        DataRequired(),
+        Length(max=30)
+    ])
+    date_of_birth = DateField('date of birth', validators=[
+        DataRequired()
+    ])
+    goal = StringField('goal', validators=[
+        Length(max=100)
+    ])
+    submit = SubmitField('Add Trainee')
