@@ -15,6 +15,6 @@ class TestBase(TestCase):
         return app
 
 class testViews(TestBase):
-    def test_home_get(self):
-        response = self.client.get(url_for('index'))
+    def test_login_get(self):
+        response = self.client.get(url_for('login'))
         self.assertEqual(response.status_code, 200)
