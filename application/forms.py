@@ -1,6 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, PositiveIntegerField, SubmitField
+from wtforms import StringField, DateField, IntegerField, SubmitField
 from wtforms.validators import DataRequired, Length
+
+class LogInForm(FlaskForm):
+    username = StringField('user name', validators=[
+        DataRequired()
+    ])
+    login = SubmitField('Log in')
 
 class TrainersForm(FlaskForm):
     first_name = StringField('first name', validators=[
@@ -14,10 +20,7 @@ class TrainersForm(FlaskForm):
     date_of_birth = DateField('date of birth', validators=[
         DataRequired()
     ])
-    experience = PositiveIntegerField('experience', validators=[
-        default=100,
-        max_digits=2
-    ])
+    experience = IntegerField('experience')
     certificates = StringField('certificates', validators=[
         Length(max=100)
     ])
