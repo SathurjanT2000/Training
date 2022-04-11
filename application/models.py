@@ -1,7 +1,7 @@
 from application import db
 from datetime import datetime
 
-class Trainers(db.model):
+class Trainers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(30), nullable=False)
     last_name = db.Column(db.String(30), nullable=False)
@@ -11,7 +11,7 @@ class Trainers(db.model):
     experience = db.Column(db.Integer, default=0)
     certificates = db.Column(db.String(30))
 
-class Trainees(db.model):
+class Trainees(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     PT_id = db.Column(db.Integer, db.ForeignKey('trainers.id'), nullable=False)
     first_name = db.Column(db.String(30), nullable=False)
