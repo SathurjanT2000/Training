@@ -51,19 +51,30 @@ class testAccess(TestBase):
             response = self.client.post(
                 url_for('index'), data = dict(username="Marc")
             )
-            self.assertEqual(response.status_code, 200)
             self.assertIn(b'hi i am a trainer', response.data)
 
     def test_trainee(self):
-        print(Trainers.id)
+        print("i am being triggered")
         with self.client:
             response = self.client.post(
                 url_for('index'), data = dict(username="Sam")
             )
-            self.assertEqual(response.status_code, 200)
             self.assertIn(b'hi i am a trainee', response.data)
 
-    
+    def test_register_trainer(self):
+        print("i am being triggered")
+        with self.client:
+            response = self.client.post(
+                url_for('index'), data = dict(
+                    first_name = "May",
+                    last_name = "Summer",
+                    date_of_birth = "2000-04-03",
+                    experience = 3,
+                    certificates = "hello"
+                )
+            )
+            self.assertIn(b'hi i am a trainer', response.data)
+            
     
 
 
