@@ -1,7 +1,6 @@
 from flask_testing import TestCase
 from application import app, db
 from application.models import Trainees, Trainers
-from Secrets import SQLALCHEMY_TEST_DATABASE_URI
 from application.forms import LogInForm
 from flask import url_for
 import uuid

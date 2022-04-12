@@ -30,10 +30,7 @@ def index():
             return render_template('trainer_home.html', all_trainers=all_trainers, all_trainees=all_trainees, login_form=login_form)
         except:
             return render_template('index.html', login_form=login_form, trainers_form=trainers_form)
-
-    
-
-
+          
 @app.route('/home_trainee')
 def home_trainee():
     return render_template('trainee_home.html')
