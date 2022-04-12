@@ -9,22 +9,22 @@ class LogInForm(FlaskForm):
     login = SubmitField('Log in')
 
 class TrainersForm(FlaskForm):
-    first_name = StringField('first name', validators=[
+    first_name = StringField('First name', validators=[
         DataRequired(),
         Length(max=30)
     ])
-    last_name = StringField('last name', validators=[
+    last_name = StringField('Last name', validators=[
         DataRequired(),
         Length(max=30)
     ])
-    date_of_birth = DateField('date of birth', validators=[
+    date_of_birth = DateField('Date of birth', validators=[
         DataRequired()
     ])
-    experience = IntegerField('experience')
-    certificates = StringField('certificates', validators=[
+    experience = IntegerField('Experience')
+    certificates = StringField('Certificates', validators=[
         Length(max=100)
     ])
-    submit = SubmitField('Add Trainer')
+    register = SubmitField('Add Trainer')
 
 class TraineesForm(FlaskForm):
     first_name = StringField('first name', validators=[
