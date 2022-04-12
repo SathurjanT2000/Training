@@ -13,7 +13,7 @@ def index():
     elif Trainees.query.filter_by(user_name=login_form.username.data).first() != None:
         return render_template('trainee_home.html', all_trainees=all_trainees, all_trainers=all_trainers, login_form=login_form)
     else:
-        return render_template('index.html', login_form=login_form)
+        return render_template('index.html', login_form=login_form, all_trainees=all_trainees, all_trainers=all_trainers)
 
 
 @app.route('/home_trainee')
