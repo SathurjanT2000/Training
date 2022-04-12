@@ -8,12 +8,22 @@ import uuid
 
 class TestBase(TestCase):
     def create_app(self):
-        app.config.update(
-            SQLALCHEMY_DATABASE_URI= SQLALCHEMY_TEST_DATABASE_URI,
-            SECRET_KEY = str(uuid.uuid4),
-            WTF_CSRF_ENABLED=False
-        )
-        return app
+        try:
+            from Secrets import SQLALCHEMY_TEST_DATABASE_URI
+            app.config.update(
+                SQLALCHEMY_DATABASE_URI= SQLALCHEMY_TEST_DATABASE_URI,
+                SECRET_KEY = str(uuid.uuid4),
+                WTF_CSRF_ENABLED=False
+            )
+            return app
+        except:
+            from os import getenv
+            app.config.update(
+                SQLALCHEMY_DATABASE_URI= getenv("SQLALCHEMY_DATABASE_URI"),
+                SECRET_KEY = str(uuid.uuid4),
+                WTF_CSRF_ENABLED=False
+            )
+            return app
 
     def setUp(self):
         db.create_all()
