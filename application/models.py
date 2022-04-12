@@ -9,7 +9,7 @@ class Trainers(db.Model):
     #password = db.binary(64), nullable=False)
     date_of_birth = db.Column(db.DateTime, nullable=False)
     experience = db.Column(db.Integer, default=0)
-    certificates = db.Column(db.String(30))
+    certificates = db.Column(db.String(30), nullable=True)
 
 class Trainees(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -18,4 +18,4 @@ class Trainees(db.Model):
     last_name = db.Column(db.String(30), nullable=False)
     user_name = db.Column(db.String(40), nullable=False, unique=True)
     date_of_birth = db.Column(db.DateTime, nullable=False)
-    goal = db.Column(db.String(100), nullable=False)
+    goal = db.Column(db.String(100))

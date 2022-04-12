@@ -1,3 +1,19 @@
-<html>
-    <p>Hello</p>
-</html>
+{% extends "layout.html" %}
+
+{% block body %}
+<form action="" method="post">
+    {{ login_form.hidden_tag() }}
+    {{ login_form.username.label() }}: {{ login_form.username }}
+    {{ login_form.login }}
+</form>
+<h2>If you are a new trainer, please register below!</h2>
+<form action="" method="post">
+    {{ trainers_form.hidden_tag() }} <br>
+    {{ trainers_form.first_name.label() }}: {{ trainers_form.first_name }} <br>
+    {{ trainers_form.last_name.label() }}: {{ trainers_form.last_name }} <br>
+    {{ trainers_form.date_of_birth.label() }}: {{ trainers_form.date_of_birth }} <br>
+    {{ trainers_form.experience.label() }}: {{ trainers_form.experience }} <br>
+    {{ trainers_form.certificates.label() }}: {{ trainers_form.certificates }} <br>
+    {{ trainers_form.register }}
+</form>
+{% endblock body %}

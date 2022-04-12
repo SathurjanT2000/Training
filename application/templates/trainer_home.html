@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form action="" method="post">
+    {{ login_form.hidden_tag() }}
+    {{ login_form.username.label() }}: {{ login_form.username }}
+    {{ login_form.login }}
+    <h1>hi i am a trainer</h1>
+</form>
+{% endblock body %}

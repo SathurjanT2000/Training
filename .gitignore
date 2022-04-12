@@ -2,3 +2,5 @@ venv/
 Secrets.py
 __pycache__/
 .coverage
+.pytest_cache
+
