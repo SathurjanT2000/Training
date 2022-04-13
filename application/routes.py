@@ -1,19 +1,17 @@
 from application import app, db
 from application.models import Trainers, Trainees
 from application.forms import LogInForm, TrainersForm
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 
 @app.route('/', methods=['GET','POST'])
 def index():
-    all_trainers = Trainers.query.all()
-    all_trainees = Trainees.query.all()
     login_form = LogInForm()
     trainers_form = TrainersForm()
 
     if Trainers.query.filter_by(user_name=login_form.username.data).first() != None:
-        return render_template('trainer_home.html', all_trainers=all_trainers, all_trainees=all_trainees, login_form=login_form)
+        return redirect(url_for('home_trainer'), code=302)
     elif Trainees.query.filter_by(user_name=login_form.username.data).first() != None:
-        return render_template('trainee_home.html', all_trainees=all_trainees, all_trainers=all_trainers, login_form=login_form)
+        return redirect(url_for('home_trainee'), code=302)
     else:
         try: 
             if request.method == "POST":
@@ -27,7 +25,7 @@ def index():
                 )
             db.session.add(task)
             db.session.commit()
-            return render_template('trainer_home.html', all_trainers=all_trainers, all_trainees=all_trainees, login_form=login_form)
+            return redirect(url_for('home_trainer', code=302))
         except:
             return render_template('index.html', login_form=login_form, trainers_form=trainers_form)
           
