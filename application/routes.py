@@ -41,10 +41,11 @@ def home_trainee():
 
 @app.route('/home_trainer', methods=['GET', 'POST'])
 def home_trainer():
+    all_trainees = Trainees.query.all()
+    print(all_trainees)
+    trainees_form = TraineesForm()
     name = request.args.get('name')
     Pt_id = request.args.get('Pt_id')
-    print(Pt_id)
-    trainees_form = TraineesForm()
     if request.method == "POST":
         trainee = Trainees(
             PT_id = Pt_id,
@@ -56,4 +57,4 @@ def home_trainer():
         )
         db.session.add(trainee)
         db.session.commit()
-    return render_template('trainer_home.html', name=name, trainees_form=trainees_form, Pt_id=Pt_id)
+    return render_template('trainer_home.html', name=name, trainees_form=trainees_form, Pt_id=Pt_id, all_trainees=all_trainees)

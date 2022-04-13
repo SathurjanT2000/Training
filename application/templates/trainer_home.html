@@ -4,6 +4,14 @@
 <form action="" method="post">
     <h1>Welcome, Trainer {{ name }}</h1>
     <h2>Your Trainees are:</h2>
+    <p>
+        {% for trainee in all_trainees %}
+            {% if trainee.PT_id|string() == Pt_id|string() %}
+                Name: {{ trainee.first_name + " " + trainee.last_name }} <br>
+                Goal: {{ trainee.goal }} <br> <br>
+            {% endif %}
+        {% endfor %}
+    </p>
     <h2>Add a new trainee</h2>
     <form action="" method="post">
         {{ trainees_form.hidden_tag() }} <br>
