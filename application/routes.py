@@ -63,4 +63,5 @@ def home_trainer():
         )
         db.session.add(trainee)
         db.session.commit()
+        return redirect(url_for('home_trainer', name=name, trainees_form=trainees_form, Pt_id=Pt_id, all_trainees=all_trainees))
     return render_template('trainer_home.html', name=name, trainees_form=trainees_form, Pt_id=Pt_id, all_trainees=all_trainees)

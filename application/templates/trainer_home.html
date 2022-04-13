@@ -8,6 +8,7 @@
         {% for trainee in all_trainees %}
             {% if trainee.PT_id|string() == Pt_id|string() %}
                 Name: {{ trainee.first_name + " " + trainee.last_name }} <br>
+                Username: {{ trainee.user_name }} <br>
                 Goal: {{ trainee.goal }} <br> <br>
             {% endif %}
         {% endfor %}
@@ -21,5 +22,10 @@
         {{ trainees_form.goal.label() }}: {{ trainees_form.goal }} <br>
         {{ trainees_form.register }}
     </form>
+    <p>
+        {% if trainees_form.error == False %}
+            Trainee registered successfully
+        {% endif %}
+    </p>
 </form>
 {% endblock body %}

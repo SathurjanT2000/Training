@@ -51,18 +51,16 @@ class testAccess(TestBase):
             response = self.client.post(
                 url_for('index'), data = dict(username="Marc"), follow_redirects=True
             )
-            self.assertIn(b'hi i am a trainer', response.data)
+            self.assertIn(b'Welcome, Trainer Spencer', response.data)
 
     def test_trainee(self):
-        print("i am being triggered")
         with self.client:
             response = self.client.post(
                 url_for('index'), data = dict(username="Sam"), follow_redirects=True
             )
-            self.assertIn(b'hi i am a trainee', response.data)
+            self.assertIn(b'Welcome, Trainee Kev', response.data)
 
     def test_register_trainer(self):
-        print("i am being triggered")
         with self.client:
             response = self.client.post(
                 url_for('index'), data = dict(
@@ -71,10 +69,24 @@ class testAccess(TestBase):
                     date_of_birth = "2000-04-03",
                     experience = 3,
                     certificates = "hello"
-                )
+                ),
+                follow_redirects=True
             )
-            self.assertIn(b'hi i am a trainer', response.data)
-            
+            self.assertIn(b'Welcome, Trainer Summer', response.data)
+
+    def test_register_trainee(self):
+        with self.client:
+            response = self.client.post(
+                url_for('home_trainer', Pt_id=1, name="hello"), data = dict(
+                    first_name = "May",
+                    last_name = "winter",
+                    date_of_birth = "2000-04-03",
+                    goal = 'meh'
+                ),
+                follow_redirects=True
+            )
+            self.assertIn(b'May winter', response.data)
+                
     
 
 
