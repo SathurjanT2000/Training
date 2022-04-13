@@ -49,7 +49,7 @@ class testAccess(TestBase):
     def test_trainer(self): 
         with self.client:
             response = self.client.post(
-                url_for('index'), data = dict(username="Marc")
+                url_for('index'), data = dict(username="Marc"), follow_redirects=True
             )
             self.assertIn(b'hi i am a trainer', response.data)
 
@@ -57,7 +57,7 @@ class testAccess(TestBase):
         print("i am being triggered")
         with self.client:
             response = self.client.post(
-                url_for('index'), data = dict(username="Sam")
+                url_for('index'), data = dict(username="Sam"), follow_redirects=True
             )
             self.assertIn(b'hi i am a trainee', response.data)
 

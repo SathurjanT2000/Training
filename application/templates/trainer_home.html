@@ -2,9 +2,24 @@
 
 {% block body %}
 <form action="" method="post">
-    {{ login_form.hidden_tag() }}
-    {{ login_form.username.label() }}: {{ login_form.username }}
-    {{ login_form.login }}
-    <h1>hi i am a trainer</h1>
+    <h2>Welcome, Trainer {{ name.capitalize() }}</h2>
+    <h2>Your Trainees are:</h2>
+    <p>
+        {% for trainee in all_trainees %}
+            {% if trainee.PT_id|string() == Pt_id|string() %}
+                Name: {{ trainee.first_name + " " + trainee.last_name }} <br>
+                Goal: {{ trainee.goal }} <br> <br>
+            {% endif %}
+        {% endfor %}
+    </p>
+    <h2>Add a new trainee</h2>
+    <form action="" method="post">
+        {{ trainees_form.hidden_tag() }} <br>
+        {{ trainees_form.first_name.label() }}: {{ trainees_form.first_name }} <br>
+        {{ trainees_form.last_name.label() }}: {{ trainees_form.last_name }} <br>
+        {{ trainees_form.date_of_birth.label() }}: {{ trainees_form.date_of_birth }} <br>
+        {{ trainees_form.goal.label() }}: {{ trainees_form.goal }} <br>
+        {{ trainees_form.register }}
+    </form>
 </form>
 {% endblock body %}

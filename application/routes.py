@@ -1,23 +1,25 @@
 from application import app, db
 from application.models import Trainers, Trainees
-from application.forms import LogInForm, TrainersForm
-from flask import render_template, request
+from application.forms import LogInForm, TrainersForm, TraineesForm
+from flask import render_template, request, redirect, url_for
 
 @app.route('/', methods=['GET','POST'])
 def index():
-    all_trainers = Trainers.query.all()
-    all_trainees = Trainees.query.all()
     login_form = LogInForm()
     trainers_form = TrainersForm()
 
     if Trainers.query.filter_by(user_name=login_form.username.data).first() != None:
-        return render_template('trainer_home.html', all_trainers=all_trainers, all_trainees=all_trainees, login_form=login_form)
+        name = Trainers.query.filter_by(user_name=login_form.username.data).first().last_name
+        Pt_id = Trainers.query.filter_by(user_name=login_form.username.data).first().id
+        return redirect(url_for('home_trainer', name=name, Pt_id=Pt_id))
     elif Trainees.query.filter_by(user_name=login_form.username.data).first() != None:
-        return render_template('trainee_home.html', all_trainees=all_trainees, all_trainers=all_trainers, login_form=login_form)
+        name = Trainees.query.filter_by(user_name=login_form.username.data).first().last_name
+        t_id = Trainees.query.filter_by(user_name=login_form.username.data).first().id
+        return redirect(url_for('home_trainee', name=name, t_id=t_id))
     else:
         try: 
             if request.method == "POST":
-                task = Trainers(
+                trainer = Trainers(
                     first_name = trainers_form.first_name.data,
                     last_name = trainers_form.last_name.data,
                     date_of_birth = trainers_form.date_of_birth.data,
@@ -25,16 +27,40 @@ def index():
                     certificates = trainers_form.certificates.data,
                     user_name = str(trainers_form.date_of_birth.data)[-2:] + trainers_form.first_name.data + trainers_form.last_name.data
                 )
-            db.session.add(task)
+            db.session.add(trainer)
             db.session.commit()
-            return render_template('trainer_home.html', all_trainers=all_trainers, all_trainees=all_trainees, login_form=login_form)
+            name = trainers_form.last_name.data
+            Pt_id = trainer.id
+            return redirect(url_for('home_trainer', name=name, Pt_id=Pt_id))
         except:
             return render_template('index.html', login_form=login_form, trainers_form=trainers_form)
           
 @app.route('/home_trainee')
 def home_trainee():
-    return render_template('trainee_home.html')
+    name = request.args.get('name')
+    t_id = request.args.get('t_id')
+    goal = Trainees.query.get(t_id).goal
+    Pt_id = Trainees.query.get(t_id).PT_id
+    Pt_name = Trainers.query.get(Pt_id).first_name + " " + Trainers.query.get(Pt_id).last_name
+    Pt_experience = Trainers.query.get(Pt_id).experience
+    Pt_certificates = Trainers.query.get(Pt_id).certificates
+    return render_template('trainee_home.html', name=name, Pt_certificates=Pt_certificates, Pt_experience=Pt_experience, Pt_name=Pt_name, goal=goal)
 
-@app.route('/home_trainer')
+@app.route('/home_trainer', methods=['GET', 'POST'])
 def home_trainer():
-    return render_template('trainer_home.html')
+    all_trainees = Trainees.query.all()
+    trainees_form = TraineesForm()
+    name = request.args.get('name')
+    Pt_id = request.args.get('Pt_id')
+    if request.method == "POST":
+        trainee = Trainees(
+            PT_id = Pt_id,
+            first_name = trainees_form.first_name.data,
+            last_name = trainees_form.last_name.data,
+            user_name = str(trainees_form.date_of_birth.data)[-2:] + trainees_form.first_name.data + trainees_form.last_name.data,
+            date_of_birth = trainees_form.date_of_birth.data,
+            goal = trainees_form.goal.data
+        )
+        db.session.add(trainee)
+        db.session.commit()
+    return render_template('trainer_home.html', name=name, trainees_form=trainees_form, Pt_id=Pt_id, all_trainees=all_trainees)
