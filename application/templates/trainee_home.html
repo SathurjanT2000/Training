@@ -5,8 +5,12 @@
     <h2>Welcome, Trainee {{ name.capitalize() }}</h2>
     <p>
         Your trainer is: {{ Pt_name }} <br>
-        Experience: {{ Pt_experience }} years <br>
-        Certificates: {{ Pt_certificates }} <br>
+        {% if Pt_experience == 0%}
+            Experience: He is a new trainer
+        {% else %}
+            Experience: {{ Pt_experience }} years <br>
+        {% endif %}
+        Certificates: {{ Pt_certificates.capitalize() }} <br>
         Weekly goal: {{ goal.capitalize() }}
     </p>
 </form>
