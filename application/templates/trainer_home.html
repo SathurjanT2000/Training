@@ -2,6 +2,16 @@
 
 {% block body %}
 <form action="" method="post">
-    <h1>hi i am a trainer</h1>
+    <h1>Welcome, Trainer {{ name }}</h1>
+    <h2>Your Trainees are:</h2>
+    <h2>Add a new trainee</h2>
+    <form action="" method="post">
+        {{ trainees_form.hidden_tag() }} <br>
+        {{ trainees_form.first_name.label() }}: {{ trainees_form.first_name }} <br>
+        {{ trainees_form.last_name.label() }}: {{ trainees_form.last_name }} <br>
+        {{ trainees_form.date_of_birth.label() }}: {{ trainees_form.date_of_birth }} <br>
+        {{ trainees_form.goal.label() }}: {{ trainees_form.goal }} <br>
+        {{ trainees_form.register }}
+    </form>
 </form>
 {% endblock body %}

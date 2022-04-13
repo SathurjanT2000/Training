@@ -1,6 +1,6 @@
 from application import app, db
 from application.models import Trainers, Trainees
-from application.forms import LogInForm, TrainersForm
+from application.forms import LogInForm, TrainersForm, TraineesForm
 from flask import render_template, request, redirect, url_for
 
 @app.route('/', methods=['GET','POST'])
@@ -9,13 +9,16 @@ def index():
     trainers_form = TrainersForm()
 
     if Trainers.query.filter_by(user_name=login_form.username.data).first() != None:
-        return redirect(url_for('home_trainer'), code=302)
+        name = Trainers.query.filter_by(user_name=login_form.username.data).first().last_name
+        Pt_id = Trainers.query.filter_by(user_name=login_form.username.data).first().id
+        return redirect(url_for('home_trainer', name=name, Pt_id=Pt_id))
     elif Trainees.query.filter_by(user_name=login_form.username.data).first() != None:
-        return redirect(url_for('home_trainee'), code=302)
+        name = Trainees.query.filter_by(user_name=login_form.username.data).first().last_name
+        return redirect(url_for('home_trainee', name=name))
     else:
         try: 
             if request.method == "POST":
-                task = Trainers(
+                trainer = Trainers(
                     first_name = trainers_form.first_name.data,
                     last_name = trainers_form.last_name.data,
                     date_of_birth = trainers_form.date_of_birth.data,
@@ -23,16 +26,34 @@ def index():
                     certificates = trainers_form.certificates.data,
                     user_name = str(trainers_form.date_of_birth.data)[-2:] + trainers_form.first_name.data + trainers_form.last_name.data
                 )
-            db.session.add(task)
+            db.session.add(trainer)
             db.session.commit()
-            return redirect(url_for('home_trainer', code=302))
+            name = trainers_form.last_name.data
+            Pt_id = trainer.id
+            return redirect(url_for('home_trainer', name=name, Pt_id=Pt_id))
         except:
             return render_template('index.html', login_form=login_form, trainers_form=trainers_form)
           
 @app.route('/home_trainee')
 def home_trainee():
-    return render_template('trainee_home.html')
+    name = request.args.get('name')
+    return render_template('trainee_home.html', name=name)
 
-@app.route('/home_trainer')
+@app.route('/home_trainer', methods=['GET', 'POST'])
 def home_trainer():
-    return render_template('trainer_home.html')
+    name = request.args.get('name')
+    Pt_id = request.args.get('Pt_id')
+    print(Pt_id)
+    trainees_form = TraineesForm()
+    if request.method == "POST":
+        trainee = Trainees(
+            PT_id = Pt_id,
+            first_name = trainees_form.first_name.data,
+            last_name = trainees_form.last_name.data,
+            user_name = str(trainees_form.date_of_birth.data)[-2:] + trainees_form.first_name.data + trainees_form.last_name.data,
+            date_of_birth = trainees_form.date_of_birth.data,
+            goal = trainees_form.goal.data
+        )
+        db.session.add(trainee)
+        db.session.commit()
+    return render_template('trainer_home.html', name=name, trainees_form=trainees_form, Pt_id=Pt_id)

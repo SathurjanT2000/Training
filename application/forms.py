@@ -27,18 +27,18 @@ class TrainersForm(FlaskForm):
     register = SubmitField('Add Trainer')
 
 class TraineesForm(FlaskForm):
-    first_name = StringField('first name', validators=[
+    first_name = StringField('First name', validators=[
         DataRequired(),
         Length(max=30)
     ])
-    last_name = StringField('last name', validators=[
+    last_name = StringField('Last name', validators=[
         DataRequired(),
         Length(max=30)
     ])
-    date_of_birth = DateField('date of birth', validators=[
+    date_of_birth = DateField('Date of birth', validators=[
         DataRequired()
     ])
-    goal = StringField('goal', validators=[
+    goal = StringField('Goal', validators=[
         Length(max=100)
     ])
-    submit = SubmitField('Add Trainee')
+    register = SubmitField('Add Trainee')
