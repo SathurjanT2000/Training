@@ -14,7 +14,8 @@ def index():
         return redirect(url_for('home_trainer', name=name, Pt_id=Pt_id))
     elif Trainees.query.filter_by(user_name=login_form.username.data).first() != None:
         name = Trainees.query.filter_by(user_name=login_form.username.data).first().last_name
-        return redirect(url_for('home_trainee', name=name))
+        t_id = Trainees.query.filter_by(user_name=login_form.username.data).first().id
+        return redirect(url_for('home_trainee', name=name, t_id=t_id))
     else:
         try: 
             if request.method == "POST":
@@ -37,12 +38,17 @@ def index():
 @app.route('/home_trainee')
 def home_trainee():
     name = request.args.get('name')
-    return render_template('trainee_home.html', name=name)
+    t_id = request.args.get('t_id')
+    goal = Trainees.query.get(t_id).goal
+    Pt_id = Trainees.query.get(t_id).PT_id
+    Pt_name = Trainers.query.get(Pt_id).first_name + " " + Trainers.query.get(Pt_id).last_name
+    Pt_experience = Trainers.query.get(Pt_id).experience
+    Pt_certificates = Trainers.query.get(Pt_id).certificates
+    return render_template('trainee_home.html', name=name, Pt_certificates=Pt_certificates, Pt_experience=Pt_experience, Pt_name=Pt_name, goal=goal)
 
 @app.route('/home_trainer', methods=['GET', 'POST'])
 def home_trainer():
     all_trainees = Trainees.query.all()
-    print(all_trainees)
     trainees_form = TraineesForm()
     name = request.args.get('name')
     Pt_id = request.args.get('Pt_id')

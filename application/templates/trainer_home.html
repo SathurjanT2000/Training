@@ -2,7 +2,7 @@
 
 {% block body %}
 <form action="" method="post">
-    <h1>Welcome, Trainer {{ name }}</h1>
+    <h2>Welcome, Trainer {{ name.capitalize() }}</h2>
     <h2>Your Trainees are:</h2>
     <p>
         {% for trainee in all_trainees %}
