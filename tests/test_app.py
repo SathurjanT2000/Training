@@ -111,7 +111,14 @@ class testData(TestBase):
 
 class testChange(TestBase):
     def test_delete(self):
-        response = self.client.post(
+        response = self.client.get(
             url_for('delete_trainee', id=1, name="Marc Spencer", Pt_id=1), follow_redirects=True
         )
         self.assertNotIn(b'Sam kev', response.data)
+
+    def test_update(self):
+        response = self.client.post(
+            url_for('update_trainee', id=1, name="Marc Spencer", Pt_id=1), data = dict(goal="Testing_update"), follow_redirects=True
+        )
+        self.assertIn(b'Testing_update', response.data)
+        self.assertNotIn(b'Meg', response.data)
