@@ -3,7 +3,14 @@
 {% block body %}
 <form action="" method="post">
     {{ updateform.hidden_tag() }}
-    {{ updateform.goal.label }}: {{ updateform.goal }}
+    {{ updateform.goal.label }}: {{ updateform.goal }} <br>
+    {% if updateform.goal.errors %}
+    <div class='error'>
+        {% for error in updateform.goal.errors %}
+            <span style="color: red">{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
     {{ updateform.update }}
 </form>
 {% endblock body %}

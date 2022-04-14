@@ -17,23 +17,21 @@ def index():
         t_id = Trainees.query.filter_by(user_name=login_form.username.data).first().id
         return redirect(url_for('home_trainee', name=name, t_id=t_id))
     else:
-        try: 
-            if request.method == "POST":
-                trainer = Trainers(
-                    first_name = trainers_form.first_name.data,
-                    last_name = trainers_form.last_name.data,
-                    date_of_birth = trainers_form.date_of_birth.data,
-                    experience = trainers_form.experience.data,
-                    certificates = trainers_form.certificates.data,
-                    user_name = str(trainers_form.date_of_birth.data)[-2:] + trainers_form.first_name.data + trainers_form.last_name.data
-                )
+        if trainers_form.validate_on_submit():
+            trainer = Trainers(
+                first_name = trainers_form.first_name.data,
+                last_name = trainers_form.last_name.data,
+                date_of_birth = trainers_form.date_of_birth.data,
+                experience = trainers_form.experience.data,
+                certificates = trainers_form.certificates.data,
+                user_name = str(trainers_form.date_of_birth.data)[-2:] + trainers_form.first_name.data + trainers_form.last_name.data
+            )
             db.session.add(trainer)
             db.session.commit()
             name = trainers_form.last_name.data
             Pt_id = trainer.id
             return redirect(url_for('home_trainer', name=name, Pt_id=Pt_id))
-        except:
-            return render_template('index.html', login_form=login_form, trainers_form=trainers_form)
+    return render_template('index.html', login_form=login_form, trainers_form=trainers_form)
           
 @app.route('/home_trainee')
 def home_trainee():
@@ -52,7 +50,7 @@ def home_trainer():
     trainees_form = TraineesForm()
     name = request.args.get('name')
     Pt_id = request.args.get('Pt_id')
-    if request.method == "POST":
+    if trainees_form.validate_on_submit():
         trainee = Trainees(
             PT_id = Pt_id,
             first_name = trainees_form.first_name.data,
@@ -82,7 +80,7 @@ def update_trainee(id):
     updateform = UpdateForm()
     trainee = Trainees.query.get(id)
 
-    if request.method == "POST":
+    if updateform.validate_on_submit():
         trainee.goal = updateform.goal.data
         db.session.commit()
         return redirect(url_for('home_trainer', name=name, Pt_id=Pt_id))

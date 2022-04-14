@@ -10,8 +10,29 @@
 <form action="" method="post">
     {{ trainers_form.hidden_tag() }} <br>
     {{ trainers_form.first_name.label() }}: {{ trainers_form.first_name }} <br>
+    {% if trainers_form.first_name.errors %}
+        <div class='error'>
+            {% for error in trainers_form.first_name.errors %}
+                <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% endif %}
     {{ trainers_form.last_name.label() }}: {{ trainers_form.last_name }} <br>
+    {% if trainers_form.last_name.errors %}
+        <div class='error'>
+            {% for error in trainers_form.last_name.errors %}
+                <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% endif %}
     {{ trainers_form.date_of_birth.label() }}: {{ trainers_form.date_of_birth }} <br>
+    {% if trainers_form.date_of_birth.errors %}
+        <div class='error'>
+            {% for error in trainers_form.date_of_birth.errors %}
+                <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% endif %}
     {{ trainers_form.experience.label() }}: {{ trainers_form.experience }} <br>
     {{ trainers_form.certificates.label() }}: {{ trainers_form.certificates }} <br>
     {{ trainers_form.register }}
