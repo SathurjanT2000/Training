@@ -34,7 +34,21 @@
         </div>
     {% endif %}
     {{ trainers_form.experience.label() }}: {{ trainers_form.experience }} <br>
+    {% if trainers_form.experience.errors %}
+        <div class='error'>
+            {% for error in trainers_form.experience.errors %}
+                <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% endif %}
     {{ trainers_form.certificates.label() }}: {{ trainers_form.certificates }} <br>
+    {% if trainers_form.certificates.errors %}
+        <div class='error'>
+            {% for error in trainers_form.certificates.errors %}
+                <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% endif %}
     {{ trainers_form.register }}
 </form>
 {% endblock body %}

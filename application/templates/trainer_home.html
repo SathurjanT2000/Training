@@ -35,11 +35,18 @@
         </div>
         {% endif %}
         {{ trainees_form.date_of_birth.label() }}: {{ trainees_form.date_of_birth }} <br>
-        {{ trainees_form.goal.label() }}: {{ trainees_form.goal }} <br>
         {% if trainees_form.date_of_birth.errors %}
         <div class='error'>
             {% for error in trainees_form.date_of_birth.errors %}
                 <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {{ trainees_form.goal.label() }}: {{ trainees_form.goal }} <br>
+        {% if trainees_form.goal.errors %}
+        <div class='error'>
+            {% for error in trainees_form.goal.errors %}
+                <span style="color: red">{{ error|safe }}</span>
             {% endfor %}
         </div>
         {% endif %}

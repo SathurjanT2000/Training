@@ -7,7 +7,7 @@
     {% if updateform.goal.errors %}
     <div class='error'>
         {% for error in updateform.goal.errors %}
-            <span style="color: red">{{ error }}</span>
+            <span style="color: red">{{ error|safe }}</span>
         {% endfor %}
     </div>
     {% endif %}
