@@ -5,9 +5,9 @@
     <h2>Welcome, Trainer {{ name.capitalize() }}</h2>
     <h2>Your Trainees are:</h2>
     <p>
-        {% for trainee in all_trainees %}
+        {% for trainee in all_trainees %} <!--iterates through all trainees the trainer have, selected my the foreign key-->
             {% if trainee.PT_id|string() == Pt_id|string() %}
-                Name: {{ trainee.first_name + " " + trainee.last_name }} <br>
+                Name: {{ trainee.first_name + " " + trainee.last_name }} <br> <!--displays trainee's details-->
                 Username: {{ trainee.user_name }} <br>
                 Goal: {{ trainee.goal }} <br>
                 <a href="{{ url_for('delete_trainee', id=trainee.id, name=name, Pt_id=Pt_id) }}">Delete</a>
@@ -16,12 +16,40 @@
         {% endfor %}
     </p>
     <h2>Add a new trainee</h2>
-    <form action="" method="post">
+    <form action="" method="post"> <!--form for registering a new trainee-->
         {{ trainees_form.hidden_tag() }} <br>
         {{ trainees_form.first_name.label() }}: {{ trainees_form.first_name }} <br>
+        {% if trainees_form.first_name.errors %}
+        <div class='error'>
+            {% for error in trainees_form.first_name.errors %}
+                <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
         {{ trainees_form.last_name.label() }}: {{ trainees_form.last_name }} <br>
+        {% if trainees_form.last_name.errors %}
+        <div class='error'>
+            {% for error in trainees_form.last_name.errors %}
+                <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
         {{ trainees_form.date_of_birth.label() }}: {{ trainees_form.date_of_birth }} <br>
+        {% if trainees_form.date_of_birth.errors %}
+        <div class='error'>
+            {% for error in trainees_form.date_of_birth.errors %}
+                <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
         {{ trainees_form.goal.label() }}: {{ trainees_form.goal }} <br>
+        {% if trainees_form.goal.errors %}
+        <div class='error'>
+            {% for error in trainees_form.goal.errors %}
+                <span style="color: red">{{ error|safe }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
         {{ trainees_form.register }}
     </form>
 </form>
