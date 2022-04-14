@@ -10,7 +10,8 @@
                 Name: {{ trainee.first_name + " " + trainee.last_name }} <br>
                 Username: {{ trainee.user_name }} <br>
                 Goal: {{ trainee.goal }} <br>
-                <a href="{{ url_for('delete_trainee', id=trainee.id, name=name, Pt_id=Pt_id) }}">Delete</a><br><br>
+                <a href="{{ url_for('delete_trainee', id=trainee.id, name=name, Pt_id=Pt_id) }}">Delete</a>
+                <a href="{{ url_for('update_trainee', id=trainee.id, name=name, Pt_id=Pt_id) }}">Update</a>
             {% endif %}
         {% endfor %}
     </p>
@@ -23,10 +24,5 @@
         {{ trainees_form.goal.label() }}: {{ trainees_form.goal }} <br>
         {{ trainees_form.register }}
     </form>
-    <p>
-        {% if trainees_form.error == False %}
-            Trainee registered successfully
-        {% endif %}
-    </p>
 </form>
 {% endblock body %}

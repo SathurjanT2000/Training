@@ -42,3 +42,9 @@ class TraineesForm(FlaskForm):
         Length(max=100)
     ])
     register = SubmitField('Add Trainee')
+    
+class UpdateForm(FlaskForm):
+    goal = StringField('Goal', validators=[
+        Length(max=100)
+    ])
+    update = SubmitField('Update goal')

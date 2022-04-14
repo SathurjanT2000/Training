@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form action="" method="post">
+    {{ updateform.hidden_tag() }}
+    {{ updateform.goal.label }}: {{ updateform.goal }}
+    {{ updateform.update }}
+</form>
+{% endblock body %}
