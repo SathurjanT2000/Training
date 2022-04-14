@@ -79,7 +79,7 @@ Project tracking was done via github [projects](https://github.com/SathurjanT200
 ![Project_tracking](./pictures/Project_tracking.png)
 
 ## RISK ASSESSMENT <a name="risk-assessment"></a>
-[Link](./risk_assessment.xlsx)
+[Link](./risk_assessment.xlsx) Please click view raw to download the excel document
 ## TESTING <a name="testing"></a>
 Testing was done through pytest and jenkins. 
 ![Console_output](./pictures/Console_output.jpg)
