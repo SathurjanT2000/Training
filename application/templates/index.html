@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form action="" method="post">
+    <!-- form for login -->
+    {{ login_form.hidden_tag() }}
+    {{ login_form.username.label() }}: {{ login_form.username }}
+    {{ login_form.login }}
+</form>
+<h2>If you are a new trainer, please register below!</h2>
+<form action="" method="post">
+    <!-- form for registering -->
+    {{ trainers_form.hidden_tag() }} <br>
+    {{ trainers_form.first_name.label() }}: {{ trainers_form.first_name }} <br>
+    {% if trainers_form.first_name.errors %}
+        <div class='error'>
+            {% for error in trainers_form.first_name.errors %} <!-- displaying errors -->
+                <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {{ trainers_form.last_name.label() }}: {{ trainers_form.last_name }} <br>
+    {% if trainers_form.last_name.errors %}
+        <div class='error'>
+            {% for error in trainers_form.last_name.errors %}
+                <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {{ trainers_form.date_of_birth.label() }}: {{ trainers_form.date_of_birth }} <br>
+    {% if trainers_form.date_of_birth.errors %}
+        <div class='error'>
+            {% for error in trainers_form.date_of_birth.errors %}
+                <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {{ trainers_form.experience.label() }}: {{ trainers_form.experience }} <br>
+    {% if trainers_form.experience.errors %}
+        <div class='error'>
+            {% for error in trainers_form.experience.errors %}
+                <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {{ trainers_form.certificates.label() }}: {{ trainers_form.certificates }} <br>
+    {% if trainers_form.certificates.errors %}
+        <div class='error'>
+            {% for error in trainers_form.certificates.errors %}
+                <span style="color: red">{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {{ trainers_form.register }}
+</form>
+{% endblock body %}

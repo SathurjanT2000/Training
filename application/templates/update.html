@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form action="" method="post">
+    {{ updateform.hidden_tag() }} <!--form for upgating goal-->
+    {{ updateform.goal.label }}: {{ updateform.goal }} <br>
+    {% if updateform.goal.errors %}
+    <div class='error'>
+        {% for error in updateform.goal.errors %}
+            <span style="color: red">{{ error|safe }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {{ updateform.update }}
+</form>
+{% endblock body %}
