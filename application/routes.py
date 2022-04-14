@@ -1,6 +1,6 @@
 from application import app, db
 from application.models import Trainers, Trainees
-from application.forms import LogInForm, TrainersForm, TraineesForm
+from application.forms import LogInForm, TrainersForm, TraineesForm, UpdateForm
 from flask import render_template, request, redirect, url_for
 
 @app.route('/', methods=['GET','POST'])
@@ -74,3 +74,16 @@ def delete_trainee(id):
     db.session.delete(trainee)
     db.session.commit()
     return redirect(url_for('home_trainer', name=name, Pt_id=Pt_id))
+
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update_trainee(id):
+    name = request.args.get('name')
+    Pt_id = request.args.get('Pt_id')
+    updateform = UpdateForm()
+    trainee = Trainees.query.get(id)
+
+    if request.method == "POST":
+        trainee.goal = updateform.goal.data
+        db.session.commit()
+        return redirect(url_for('home_trainer', name=name, Pt_id=Pt_id))
+    return render_template('update.html', updateform=updateform)
