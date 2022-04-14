@@ -4,14 +4,22 @@
 <form action="" method="post">
     <h2>Welcome, Trainee {{ name.capitalize() }}</h2>
     <p>
-        Your trainer is: {{ Pt_name }} <br>
-        {% if Pt_experience == 0%}
-            Experience: He is a new trainer
+        Your trainer is: {{ Pt_name }} <br> <!-- displayes trainer's details-->
+        {% if Pt_experience == 0 %}
+            Experience: He is a new trainer <br>
         {% else %}
             Experience: {{ Pt_experience }} years <br>
+        {% endif %} <!-- If statment to provide different outcome for trainers with experience-->
+        {% if Pt_certificates == "" or Pt_certificates == None %} <!-- need to do this for both html and pytest to recognise None-->
+            Certificates: Currently Unavaliable<br>
+        {% else %}
+            Certificates: {{ Pt_certificates.capitalize() }} <br>
         {% endif %}
-        Certificates: {{ Pt_certificates.capitalize() }} <br>
-        Weekly goal: {{ goal.capitalize() }}
+        {% if goal == "" or goal == None %}
+            Weakly goal: No Goal Set<br>
+        {% else %}
+            Weekly goal: {{ goal.capitalize() }} <br> <!-- displays goal-->
+        {% endif %}
     </p>
 </form>
 {% endblock body %}

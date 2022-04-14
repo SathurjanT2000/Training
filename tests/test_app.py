@@ -28,11 +28,15 @@ class TestBase(TestCase):
         db.create_all()
      
         Marc = Trainers(first_name="Marc", last_name="Spencer", user_name="Marc", date_of_birth="1000-4-3", experience=3, certificates="mer")
+        Karl = Trainers(first_name="Karl", last_name="Spencer", user_name="Karl", date_of_birth="1000-4-3", experience=0)
         Sam = Trainees(PT_id=1, first_name="Sam", last_name="kev", user_name="Sam", date_of_birth="2022-03-03", goal="meg")
+        Fam = Trainees(PT_id=2, first_name="Fam", last_name="kev", user_name="Fam", date_of_birth="2022-03-03")
       
         db.session.add(Marc)
+        db.session.add(Karl)
         db.session.commit()
         db.session.add(Sam)
+        db.session.add(Fam)
         db.session.commit()
     
     def tearDown(self):
@@ -207,6 +211,18 @@ class testData(TestBase):
         self.assertIn(b'3 years', response.data)
         self.assertIn(b'Meg', response.data) #certificates
         self.assertIn(b'Mer', response.data) #goal
+
+    def test_data_on_trainees_home_outcome(self):
+        #testing to see if trainer details and goal are displayed on trainee home page
+        response = self.client.post(
+            url_for('index', name="kev", t_id=2), data = dict(username="Fam"), follow_redirects=True
+        )
+        self.assertIn(b'Welcome, Trainee Kev', response.data)
+        self.assertIn(b'Karl Spencer', response.data)
+        self.assertIn(b'He is a new trainer', response.data)
+        self.assertIn(b'Currently Unavaliable', response.data) #certificates
+        self.assertIn(b'No Goal Set', response.data) #goal
+
 
 class testChange(TestBase):
     #testing to see if trianee is removed

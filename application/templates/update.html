@@ -2,7 +2,7 @@
 
 {% block body %}
 <form action="" method="post">
-    {{ updateform.hidden_tag() }}
+    {{ updateform.hidden_tag() }} <!--form for upgating goal-->
     {{ updateform.goal.label }}: {{ updateform.goal }} <br>
     {% if updateform.goal.errors %}
     <div class='error'>
