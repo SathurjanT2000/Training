@@ -108,3 +108,10 @@ class testData(TestBase):
         self.assertIn(b'3 years', response.data)
         self.assertIn(b'Meg', response.data)
         self.assertIn(b'Mer', response.data)
+
+class testChange(TestBase):
+    def test_delete(self):
+        response = self.client.post(
+            url_for('delete_trainee', id=1, name="Marc Spencer", Pt_id=1), follow_redirects=True
+        )
+        self.assertNotIn(b'Sam kev', response.data)

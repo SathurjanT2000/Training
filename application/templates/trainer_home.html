@@ -9,7 +9,8 @@
             {% if trainee.PT_id|string() == Pt_id|string() %}
                 Name: {{ trainee.first_name + " " + trainee.last_name }} <br>
                 Username: {{ trainee.user_name }} <br>
-                Goal: {{ trainee.goal }} <br> <br>
+                Goal: {{ trainee.goal }} <br>
+                <a href="{{ url_for('delete_trainee', id=trainee.id, name=name, Pt_id=Pt_id) }}">Delete</a><br><br>
             {% endif %}
         {% endfor %}
     </p>
