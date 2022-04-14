@@ -26,6 +26,20 @@ class AgeCheck:
         elif datetime.date(datetime.now()) - field.data < timedelta(self.number*365):
             raise ValidationError(self.message)
 
+class NotAllowedCharacters:
+    def __init__(self, not_allowed, message=None):
+        self.not_allowed = not_allowed
+        if not message:
+            message = f"Invalid characters, please don't use any of these characters {self.not_allowed}"
+        self.message = message
+    
+    def __call__(self, form, field):
+        for char in field.data:
+            if char in self.not_allowed:
+                raise ValidationError(self.message)
+                break
+
+
 class LogInForm(FlaskForm):
     username = StringField('Username', validators=[
         DataRequired()
@@ -74,13 +88,13 @@ class TraineesForm(FlaskForm):
     ])
     goal = StringField('Goal', validators=[
         Length(max=100),
-        CharactersCheck(message="Invalid goal, please remove special characters and numbers")
+        NotAllowedCharacters(not_allowed = '!#%&?\/"\'$£', message="Invalid goal, please remove special characters and numbers")
     ])
     register = SubmitField('Add Trainee')
     
 class UpdateForm(FlaskForm):
     goal = StringField('Goal', validators=[
         Length(max=100),
-        CharactersCheck(message="Invalid goal, please remove special characters and numbers")
+        NotAllowedCharacters(not_allowed = '!#%&?\/"\'$£', message="Invalid goal, please remove special characters and numbers")
     ])
     update = SubmitField('Update goal')
