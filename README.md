@@ -2,6 +2,7 @@
 
 ## CONTENT
 - [Introduction](#intoduction)
+    - [Before running the application](#before-running-the-application)
 - [Brief](#brief)
     - [Requirements](#requirements)
     - [My approach](#my-approach)
@@ -14,13 +15,15 @@
 - [Testing](#testing)
 - [Known Issues](#risk-assessment)
 - [Possible Improvement](#possible-improvement)
+- [Contributors](#contributors)
+- [Acknowledgement](#acknowledgement)
 - [Resources](#resources)
 
-## INTRODUCTION
+## INTRODUCTION <a name="intoduction"></a>
 This application is for trainers who are having hard time managing their trainees. With this application you will be able to keep track of your trainees and the goals you set for them.
 
-### Before running the application:
-Please install everything on the requirements.txt\
+### Before running the application: <a name="before-running-the-application"></a>
+Please install everything on the requirements.txt (versions are included in the requirments.txt)\
 Activate your virtual environment\
 Set up a secret file with a link to a sql database\
 Run the create.py first then app.py
@@ -106,6 +109,18 @@ Known issues with testing:
 - Could implement log_in restriction on webpages and redirect them back to index when a specific url is entered.
 - Could implement a "forgot username" feature.
 - Could show trainer's username on their home page.
+
+## CONTRIBUTORS <a name="contributors"></a>
+Author: T Sathurjan
+
+## ACKNOWLEDGEMENT: <a name="acknowledgement"></a>
+I would like to express my special thanks of gratitude to my trainers as well as QA who gave me the golden opportunity to do this wonderful project, which also helped me in doing a lot of research and i came to learn about so many new things.
+
+Trainers:
+- Ryan Wright
+- Victoria Sacre
+- Harry Volker
+- Luke Benson
 
 ## RESOURCES <a name="resources"></a>
 [Draw.io](https://app.diagrams.net/) was used to create Database Structure and CI Pipline.\
