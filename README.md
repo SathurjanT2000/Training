@@ -70,7 +70,7 @@ _D - Delete_
 ![Front-end Structure 2](./pictures/Website_structure(trainee).png)
 ### Database Structure <a name="database-structure"></a>
 ![Database_structure](./pictures/Database_structure.png)
-**Unfortunatly in this build, password feature was not implemented. However, it will be a fature in the future**
+**Unfortunatly in this build, password feature was not implemented. However, it will be a feature in the future**
 ### CI pipeline <a name="ci-pipeline"></a>
 ![CI-pipeline](./pictures/CI-pipeline.png)
 
