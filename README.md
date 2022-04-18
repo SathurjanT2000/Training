@@ -1,5 +1,8 @@
 # **TRAINEE MANAGEMENT APP**
 
+[**PRESENTATION RECORDING, CLICK HERE**](https://drive.google.com/file/d/11BHn18Zwcm3CS3RiPGOP38F69saOz-pD/view?usp=sharing)\
+it seems you will need to dowload the file
+
 ## CONTENT
 - [Introduction](#intoduction)
     - [Before running the application](#before-running-the-application)
